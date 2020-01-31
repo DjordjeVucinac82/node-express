@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    container_name: nginx-proxy
+    port:
+      - 80:8080
+      - 
+    networks:
+      - nodeapp
+
+  testnodeapp1:
+    image: nodeapp1/1:latest 
+    container_name: testnodeapp1
+    #restart: always  
+    ports:
+      - 8090:3000
+    environment: 
+      - PORT=3000   
+    networks:
+      - nodeapp      
+
+  testnodeapp2:
+    image: nodeapp1/1:latest 
+    container_name: testnodeapp2
+    #restart: on-failure
+    ports:
+      - 8091:3001
+    environment: 
+      - PORT=3001
+    networks:
+      - nodeapp      
+
+networks:
+  nodeapp
